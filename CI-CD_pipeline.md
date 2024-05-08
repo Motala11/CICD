@@ -50,6 +50,11 @@ Implementing a CI/CD pipeline involves several steps:
 ![alt text](images-cicd/how_cicd.png)
 
 ### How to create a Jenkins project
+
+A Jenkins project refers to a specific task or job configured within Jenkins, which is an open-source automation server used for continuous integration and continuous delivery (CI/CD) of software projects. 
+<br>
+By defining and managing projects in Jenkins, development teams can automate key aspects of their software delivery pipeline, ensuring efficiency, consistency, and reliability in the software development lifecycle.
+
 1. Click on new item
 ![alt text](images-cicd/clicknewproject.PNG)
 
@@ -74,6 +79,8 @@ This will be how we conduct our tests, and what we are specifically testing.
 ![alt text](images-cicd/final-setup.PNG)
 
 ### Creating a Webhook for our Jenkins project
+A webhook is a mechanism that allows one system or application to notify another system or application about events or updates in real-time.
+
 1. Navigate to the Github Settings and click Webhooks.
 2. Click create new webhook.
 3. Enter the url of your Jenkins page in `Payload URL`.
