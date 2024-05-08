@@ -81,6 +81,7 @@ This will be how we conduct our tests, and what we are specifically testing.
 5. Click `Let me select individual events` as we wish to be alerted to both push and pulls.
 
 ![alt text](images-cicd/wh-pt1.PNG)
+<br>
 
 ![alt text](images-cicd/wh-pt2.PNG)
 6. Next, we must navigate to Jenkins and configure our item to collaborate with the webhook.
