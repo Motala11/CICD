@@ -5,8 +5,8 @@
     - [Why?](#why)
     - [When?](#when)
     - [How?](#how)
-    - [How to create a Jenkins item](#how-to-create-a-jenkins-item)
-    - [Creating a Webhook for our Jenkins item](#creating-a-webhook-for-our-jenkins-item)
+    - [How to create a Jenkins project](#how-to-create-a-jenkins-project)
+    - [Creating a Webhook for our Jenkins project](#creating-a-webhook-for-our-jenkins-project)
 
 
 ![alt text](images-cicd/diagram.png)
@@ -49,7 +49,7 @@ Implementing a CI/CD pipeline involves several steps:
 
 ![alt text](images-cicd/how_cicd.png)
 
-### How to create a Jenkins item
+### How to create a Jenkins project
 1. Click on new item
 ![alt text](images-cicd/clicknewproject.PNG)
 
@@ -73,7 +73,7 @@ This will be how we conduct our tests, and what we are specifically testing.
 
 ![alt text](images-cicd/final-setup.PNG)
 
-### Creating a Webhook for our Jenkins item
+### Creating a Webhook for our Jenkins project
 1. Navigate to the Github Settings and click Webhooks.
 2. Click create new webhook.
 3. Enter the url of your Jenkins page in `Payload URL`.
