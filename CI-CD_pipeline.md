@@ -53,14 +53,14 @@ Implementing a CI/CD pipeline involves several steps:
 1. Click on new item
 ![alt text](images-cicd/clicknewproject.PNG)
 
-2. Name your item and specify the project, in this situation we are using a "Freestyle project". <br>
+2. Name your item and specify the project, in this situation we are using a `Freestyle project`. <br>
  ![alt text](images-cicd/name-item.PNG)
 
 3. Provide a description of your item, this should allow other people to understand the reasoning of your item.
-4. Click "GitHub project" and supply the URL of your GitHub project.
-5. Click "Restrict where this project can be run" and specify "sparta-ubuntu-node" as this will protect the master branch.
+4. Click `GitHub project` and supply the URL of your GitHub project.
+5. Click `Restrict where this project can be run` and specify `sparta-ubuntu-node` as this will protect the master branch.
 ![alt text](images-cicd/init-setup.PNG)
-6. Click "Git" for "Source Code Management", specify the repository using the "SSH" link provided on Github. The "Branch" should also be `main`.
+6. Click `Git` for `Source Code Management`, specify the repository using the "SSH" link provided on Github. The `Branch` should also be `main`.
 ![alt text](images-cicd/scm-setup.PNG)
 7. To access the GitHub repo, you must provide the private key. To do this, click on the `add` in the picture above, enter the contents of your private key.
 8. We are leaving `Build Triggers` alone for now, but click `Provide Node & npm bin/folder to Path`.
