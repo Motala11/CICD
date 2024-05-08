@@ -5,6 +5,7 @@
     - [Why?](#why)
     - [When?](#when)
     - [How?](#how)
+    - [Delivery vs Deployment in production](#delivery-vs-deployment-in-production)
     - [How to create a Jenkins project](#how-to-create-a-jenkins-project)
     - [Creating a Webhook for our Jenkins project](#creating-a-webhook-for-our-jenkins-project)
 
@@ -48,6 +49,18 @@ Implementing a CI/CD pipeline involves several steps:
 <br><br>
 
 ![alt text](images-cicd/how_cicd.png)
+
+### Delivery vs Deployment in production
+Delivery refers to the process of handing over the completed or tested software to the operations or production environment. It encompasses preparing the software for deployment and ensuring that it's packaged correctly. <br>
+Deployment refers to the process of making the software available and operational in a specific environment, typically the production environment where end-users will access it. <br>
+- Scope: Delivery focuses on preparing the software for deployment by creating a release package, while deployment focuses on actually installing and configuring the software in the production environment.
+- Activities: Delivery involves packaging, versioning, and documenting the software, whereas deployment involves installation, configuration, and integration.
+- Timing: Delivery usually precedes deployment. Delivery ensures that the software is ready to be deployed, whereas deployment turns the delivered software into a live and operational system.
+
+In summary, delivery is about preparing the software for deployment, while deployment is about putting the software into operation in the production environment.
+<br><Br>
+
+![alt text](images-cicd/ci-vs-cd.png)
 
 ### How to create a Jenkins project
 
