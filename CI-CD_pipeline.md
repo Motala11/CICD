@@ -1,5 +1,12 @@
 # CI/CD pipeline
 
+- [CI/CD pipeline](#cicd-pipeline)
+    - [What?](#what)
+    - [Why?](#why)
+    - [When?](#when)
+    - [How?](#how)
+
+
 ![alt text](images-cicd/diagram.png)
 
 ### What?
