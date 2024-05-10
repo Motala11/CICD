@@ -6,8 +6,13 @@
     - [When?](#when)
     - [How?](#how)
     - [Delivery vs Deployment in production](#delivery-vs-deployment-in-production)
+    - [Job Overview](#job-overview)
+      - [Job 1: Testing Sparta App](#job-1-testing-sparta-app)
+      - [Job 2: Merging dev branch and main branch IF Job 1 is successful.](#job-2-merging-dev-branch-and-main-branch-if-job-1-is-successful)
+      - [Job 3: CD of deploying main branch to production.](#job-3-cd-of-deploying-main-branch-to-production)
     - [How to create a Jenkins project](#how-to-create-a-jenkins-project)
     - [Creating a Webhook for our Jenkins project](#creating-a-webhook-for-our-jenkins-project)
+    - [Connecting Jenkins to AWS Instance](#connecting-jenkins-to-aws-instance)
 
 
 ![alt text](images-cicd/diagram.png)
@@ -62,6 +67,17 @@ In summary, delivery is about preparing the software for deployment, while deplo
 
 ![alt text](images-cicd/ci-vs-cd.png)
 
+### Job Overview
+This section will provide an overview of the jobs we are creating in the following section.
+#### Job 1: Testing Sparta App
+Here, we will be connecting our Github Repo to Jenkins, whilst running a test that our `npm install` functions as intended, in the `app` folder.
+#### Job 2: Merging dev branch and main branch IF Job 1 is successful.
+Once Job 1 has passed the tests and we know it functions as intended, we will merge the dev branch with the main branch, which ensures there are no conflicts and the merge only occurs IF Job 1 is successful.
+#### Job 3: CD of deploying main branch to production.
+
+
+
+
 ### How to create a Jenkins project
 
 A Jenkins project refers to a specific task or job configured within Jenkins, which is an open-source automation server used for continuous integration and continuous delivery (CI/CD) of software projects. 
@@ -108,3 +124,18 @@ A webhook is a mechanism that allows one system or application to notify another
 7. Click the `GitHub hook trigger for GITScm polling` option and you are done! You have successfully created a Webhook for your Jenkins item.
    
    ![alt text](images-cicd/wh-pt3.PNG)
+
+### Connecting Jenkins to AWS Instance
+1. Create a new item in your dashboard.<br>
+![alt text](images-cicd/clicknewproject.PNG)
+2. Provide a description that will allow colleagues to understand the reasoning behind the job you are creating.
+3. Provide a `max # of builds` of 3, as this will prevent the server from crashing if there is too much traffic.
+4. Provide the GitHub project URL that you are using.
+   ![alt text](images-cicd/cd-setup-part1.PNG)
+5. Provide the GitHub SSH URL provided as well as the private key that you have created beforehand. The branch we are working on will be `main`.
+   ![alt text](images-cicd/cd-setup-part2.PNG)
+6. We are using `SSH Agent` and providing the private key required to access our instance. This is to allow our Jenkins project to SSH into our EC2 instance and run the shell commands we desire.
+   ![alt text](images-cicd/cd-setup-part3.PNG)
+7. Now onto our Shell commands, the purpose of this project is to ultimately, start our app in the background. Before we can do this, we must SSH into our instance, then run the necessary update&&upgrade commands, as well as installing nginx. From there, we must enable Nginx so that Nginx will automatically start the next time the insttance is booted on. This will then have your Nginx page available.
+   ![alt text](images-cicd/cd-setup-part4.PNG)
+   ![alt text](images-cicd/cd-nginx.PNG)
