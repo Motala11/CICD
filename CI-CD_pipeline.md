@@ -68,6 +68,7 @@ In summary, delivery is about preparing the software for deployment, while deplo
 ![alt text](images-cicd/ci-vs-cd.png)
 
 ### Job Overview
+![alt text](images-cicd/job-overview.png)
 This section will provide an overview of the jobs we are creating in the following section.
 #### Job 1: Testing Sparta App
 Here, we will be connecting our Github Repo to Jenkins, whilst running a test that our `npm install` functions as intended, in the `app` folder.
@@ -136,6 +137,6 @@ A webhook is a mechanism that allows one system or application to notify another
    ![alt text](images-cicd/cd-setup-part2.PNG)
 6. We are using `SSH Agent` and providing the private key required to access our instance. This is to allow our Jenkins project to SSH into our EC2 instance and run the shell commands we desire.
    ![alt text](images-cicd/cd-setup-part3.PNG)
-7. Now onto our Shell commands, the purpose of this project is to ultimately, start our app in the background. Before we can do this, we must SSH into our instance, then run the necessary update&&upgrade commands, as well as installing nginx. From there, we must enable Nginx so that Nginx will automatically start the next time the insttance is booted on. This will then have your Nginx page available.
+7. Now onto our Shell commands, the purpose of this project is to ultimately, start our app in the background. Before we can do this, we must SSH into our instance, then run the necessary update&&upgrade commands, as well as installing nginx. From there, we must enable Nginx so that Nginx will automatically start the next time the instance is booted on. This will then have your Nginx page available.
    ![alt text](images-cicd/cd-setup-part4.PNG)
    ![alt text](images-cicd/cd-nginx.PNG)
