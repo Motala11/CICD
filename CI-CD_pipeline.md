@@ -137,6 +137,12 @@ A webhook is a mechanism that allows one system or application to notify another
    ![alt text](images-cicd/cd-setup-part2.PNG)
 6. We are using `SSH Agent` and providing the private key required to access our instance. This is to allow our Jenkins project to SSH into our EC2 instance and run the shell commands we desire.
    ![alt text](images-cicd/cd-setup-part3.PNG)
-7. Now onto our Shell commands, the purpose of this project is to ultimately, start our app in the background. Before we can do this, we must SSH into our instance, then run the necessary update&&upgrade commands, as well as installing nginx. From there, we must enable Nginx so that Nginx will automatically start the next time the instance is booted on. This will then have your Nginx page available.
+7. Now onto our Shell commands, the purpose of this project is to ultimately, start our app in the background. Before we can do this, we must SSH into our instance, then run the necessary update&&upgrade commands, as well as installing nginx. From there, we must enable Nginx so that Nginx will automatically start the next time the instance is booted on. This will then have your Nginx page available. <br><br> 
    ![alt text](images-cicd/cd-setup-part4.PNG)
+8.  Moving on, we wish to have our app running. To do this, we must edit the `provision.sh` script in the `~/environment/app` folder. The `node` version we install must be minimum 10.0. We must also install pm2 as that is the process manager we use. It's designed to simplify the deployment and management of Node.js applications. 
+  ![alt text](images-cicd/prov.sh-setup.PNG)
    ![alt text](images-cicd/cd-nginx.PNG)
+   ![alt text](images-cicd/sparta-app-site.PNG)
+9. We can reverse proxy to automate the `:3000` configuration in the URL. To do this, enter the following `sudo sed -i '51s/.*/\t        proxy_pass http:\/\/localhost:3000;/' /etc/nginx/sites-enabled/default
+sudo systemctl restart nginx`. As you can see, we no longer need to specify the `:3000` port, this has been automated. Reverse proxy is similar to having a waiter deliver the food as opposed to the customer going to the pass to receive their food.
+![alt text](images-cicd/rev-proxy.PNG)
