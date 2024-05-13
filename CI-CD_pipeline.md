@@ -194,3 +194,5 @@ sudo apt-get install jenkins```
    ![alt text](images-cicd/server-setup-part7.PNG)
 8. Change configuration to allow first connection so your Jenkins can connect to your server.<br>
    ![alt text](images-cicd/server-setup-part8.PNG)
+9. Install the required plug-ins, such as NodeJs.<br>
+ ![alt text](images-cicd/server-setup-part9.PNG)
