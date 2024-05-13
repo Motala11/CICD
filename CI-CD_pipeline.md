@@ -15,6 +15,7 @@
     - [Creating a Webhook for our Jenkins project](#creating-a-webhook-for-our-jenkins-project)
     - [Connecting Jenkins to AWS Instance](#connecting-jenkins-to-aws-instance)
     - [Deploying the app with new code](#deploying-the-app-with-new-code)
+    - [Creating your own Jenkins server](#creating-your-own-jenkins-server)
 
 
 ![alt text](images-cicd/diagram.png)
@@ -170,3 +171,26 @@ From there, we `cd` into the `app` folder, run `npm install` whilst also running
 6. To automate this further, we can include Job 4 to be run as a post-build trigger for Job 3. This means that once the dependencies are correctly installed for Job 3, Job 4 will run automatically, which is the deployment of the app to production. <br>
    ![alt text](images-cicd/app-deployment-pt6.PNG) <br>
    ![alt text](images-cicd/app-deployment-proof.PNG)
+
+### Creating your own Jenkins server
+Here, this guide will take you through how to create your own Jenkins server.
+1. Create a fresh EC2 instance, then proceed to SSH into it. Here, we will install the required dependencies. 
+2. Following on from this, we must run `sudo apt update -y` to download possible updates to our server. <br>
+   ![alt text](images-cicd/server-setup-part1.PNG)
+3. Once the updates have been downloaded, we must then upgrade our server for these updates. Do this via `sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y`. <br>
+   ![alt text](images-cicd/server-setup-part2.PNG)
+4. Install Java before you install Jenkins! <br>
+   ![alt text](images-cicd/server-setup-part3.PNG)
+5. Install Jenkins <br>```sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
+  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" \
+  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+sudo apt-get update
+sudo apt-get install jenkins```
+6. Next, unlock Jenkins <br>
+   ![alt text](images-cicd/server-setup-part5.PNG)
+7. Install the suggested plugins <br>
+   ![alt text](images-cicd/server-setup-part7.PNG)
+8. Change configuration to allow first connection so your Jenkins can connect to your server.<br>
+   ![alt text](images-cicd/server-setup-part8.PNG)
