@@ -10,9 +10,11 @@
       - [Job 1: Testing Sparta App](#job-1-testing-sparta-app)
       - [Job 2: Merging dev branch and main branch IF Job 1 is successful.](#job-2-merging-dev-branch-and-main-branch-if-job-1-is-successful)
       - [Job 3: CD of deploying main branch to production.](#job-3-cd-of-deploying-main-branch-to-production)
+      - [Job 4: Deploying the app with new code](#job-4-deploying-the-app-with-new-code)
     - [How to create a Jenkins project](#how-to-create-a-jenkins-project)
     - [Creating a Webhook for our Jenkins project](#creating-a-webhook-for-our-jenkins-project)
     - [Connecting Jenkins to AWS Instance](#connecting-jenkins-to-aws-instance)
+    - [Deploying the app with new code](#deploying-the-app-with-new-code)
 
 
 ![alt text](images-cicd/diagram.png)
@@ -21,6 +23,7 @@
 A CI/CD (Continuous Integration/Continuous Delivery) pipeline is a set of automated processes that help teams deliver software changes more frequently and reliably. It involves building, testing, and deploying code changes automatically. Here's a quick breakdown:
 - Continuous Integration (CI): This part involves automatically building and testing code changes whenever a developer commits code to a shared repository. It helps identify issues early in the development process.
 - Continuous Delivery (CD): This part focuses on automating the deployment of tested code to production or staging environments. The goal is to ensure that software can be released quickly, safely, and frequently. <br> <br>
+- Continuous Deployment takes CD one step further by automatically deploying every code change that passes through the CI/CD pipeline to production environments without manual intervention.
 
 ![alt text](images-cicd/what_cicd.png)
 
@@ -75,6 +78,10 @@ Here, we will be connecting our Github Repo to Jenkins, whilst running a test th
 #### Job 2: Merging dev branch and main branch IF Job 1 is successful.
 Once Job 1 has passed the tests and we know it functions as intended, we will merge the dev branch with the main branch, which ensures there are no conflicts and the merge only occurs IF Job 1 is successful.
 #### Job 3: CD of deploying main branch to production.
+Job 3 initiates the Continuous Deployment (CD) phase by deploying the code from the main branch to production. It will push the code to the production environment, typically an EC2 instance.
+#### Job 4: Deploying the app with new code
+Job 4 automates the deployment of the app, so that the app will begin running once the job has been executed.
+
 
 
 
@@ -146,3 +153,20 @@ A webhook is a mechanism that allows one system or application to notify another
 9. We can reverse proxy to automate the `:3000` configuration in the URL. To do this, enter the following `sudo sed -i '51s/.*/\t        proxy_pass http:\/\/localhost:3000;/' /etc/nginx/sites-enabled/default
 sudo systemctl restart nginx`. As you can see, we no longer need to specify the `:3000` port, this has been automated. Reverse proxy is similar to having a waiter deliver the food as opposed to the customer going to the pass to receive their food.
 ![alt text](images-cicd/rev-proxy.PNG)
+
+### Deploying the app with new code
+Now that the required dependencies have been set up during Job 3, it is time to execute this and run our app!
+1. Create a new item in the dashboard for this job. <br>
+   ![alt text](images-cicd/app-deployment-pt1.PNG)
+2.  Next, you must give an accurate and detailed description, this includes specifiying the IP address of the app instance and including the ports required. The detail given must be sufficient so that a colleague can execute the app if you are absent from work.<br>
+   ![alt text](images-cicd/app-deployment-pt2.PNG)
+3. Following on from this, specify the GitHub URL that you are working from as well as the branch that you are using. As this is to deploy the app to production, it is the main branch that we are using. We also enable GitHub webhook triggers, as we want to be notified if our app has deployed or otherwise. <br>
+   ![alt text](images-cicd/app-deployment-pt3.PNG)
+4. Next, we must establish the build environment. We will need Node provided as this is what our app runs on, whilst also allowing SSH access to our instance, so that Jenkins can run commands on our app server. <br>
+   ![alt text](images-cicd/app-deployment-pt4.PNG)
+5. We then input the shell commands to be executed. These will be responsible for launching our app. First, we clone the code from the main branch using the `rsync` command. We have to specify the IP address of the App instance to ensure the clone functions as intended. After this, we allow Jenkins to SSH into the instance. <br>
+From there, we `cd` into the `app` folder, run `npm install` whilst also running `pm2 kill`. `pm2 kill` is vital as it will end any process of the app running, which ensures our app is redeployable and avoids the error of the app being unable to launch as it has already launched. We then start the app, which allows the process to run.<br>
+   ![alt text](images-cicd/app-deployment-pt5.PNG)
+6. To automate this further, we can include Job 4 to be run as a post-build trigger for Job 3. This means that once the dependencies are correctly installed for Job 3, Job 4 will run automatically, which is the deployment of the app to production. <br>
+   ![alt text](images-cicd/app-deployment-pt6.PNG) <br>
+   ![alt text](images-cicd/app-deployment-proof.PNG)
