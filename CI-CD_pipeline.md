@@ -11,11 +11,12 @@
       - [Job 2: Merging dev branch and main branch IF Job 1 is successful.](#job-2-merging-dev-branch-and-main-branch-if-job-1-is-successful)
       - [Job 3: CD of deploying main branch to production.](#job-3-cd-of-deploying-main-branch-to-production)
       - [Job 4: Deploying the app with new code](#job-4-deploying-the-app-with-new-code)
+  - [Prerequisites](#prerequisites)
+    - [Creating your own Jenkins server](#creating-your-own-jenkins-server)
     - [How to create a Jenkins project](#how-to-create-a-jenkins-project)
     - [Creating a Webhook for our Jenkins project](#creating-a-webhook-for-our-jenkins-project)
     - [Connecting Jenkins to AWS Instance](#connecting-jenkins-to-aws-instance)
     - [Deploying the app with new code](#deploying-the-app-with-new-code)
-    - [Creating your own Jenkins server](#creating-your-own-jenkins-server)
 
 
 ![alt text](images-cicd/diagram.png)
@@ -84,7 +85,33 @@ Job 3 initiates the Continuous Deployment (CD) phase by deploying the code from 
 Job 4 automates the deployment of the app, so that the app will begin running once the job has been executed.
 
 
+## Prerequisites
+Before we create our desired jobs on Jenkins, we must first ensure we have Jenkins available on our machines.
 
+### Creating your own Jenkins server
+Here, this guide will take you through how to create your own Jenkins server.
+1. Create a fresh EC2 instance, then proceed to SSH into it. Here, we will install the required dependencies. 
+2. Following on from this, we must run `sudo apt update -y` to download possible updates to our server. <br>
+   ![alt text](images-cicd/server-setup-part1.PNG)
+3. Once the updates have been downloaded, we must then upgrade our server for these updates. Do this via `sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y`. <br>
+   ![alt text](images-cicd/server-setup-part2.PNG)
+4. Install Java before you install Jenkins! <br>
+   ![alt text](images-cicd/server-setup-part3.PNG)
+5. Install Jenkins, these commands were taken from the official Jenkins documentation: https://www.jenkins.io/doc/book/installing/linux/ <br>```sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
+  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" \
+  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+sudo apt-get update
+sudo apt-get install jenkins```
+6. Next, unlock Jenkins <br>
+   ![alt text](images-cicd/server-setup-part5.PNG)
+7. Install the suggested plugins <br>
+   ![alt text](images-cicd/server-setup-part7.PNG)
+8. Change configuration to allow first connection so your Jenkins can connect to your server.<br>
+   ![alt text](images-cicd/server-setup-part8.PNG)
+9. Install the required plug-ins, such as NodeJs.<br>
+ ![alt text](images-cicd/server-setup-part9.PNG)
 
 
 ### How to create a Jenkins project
@@ -172,27 +199,3 @@ From there, we `cd` into the `app` folder, run `npm install` whilst also running
    ![alt text](images-cicd/app-deployment-pt6.PNG) <br>
    ![alt text](images-cicd/app-deployment-proof.PNG)
 
-### Creating your own Jenkins server
-Here, this guide will take you through how to create your own Jenkins server.
-1. Create a fresh EC2 instance, then proceed to SSH into it. Here, we will install the required dependencies. 
-2. Following on from this, we must run `sudo apt update -y` to download possible updates to our server. <br>
-   ![alt text](images-cicd/server-setup-part1.PNG)
-3. Once the updates have been downloaded, we must then upgrade our server for these updates. Do this via `sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y`. <br>
-   ![alt text](images-cicd/server-setup-part2.PNG)
-4. Install Java before you install Jenkins! <br>
-   ![alt text](images-cicd/server-setup-part3.PNG)
-5. Install Jenkins <br>```sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
-  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
-echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" \
-  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
-  /etc/apt/sources.list.d/jenkins.list > /dev/null
-sudo apt-get update
-sudo apt-get install jenkins```
-6. Next, unlock Jenkins <br>
-   ![alt text](images-cicd/server-setup-part5.PNG)
-7. Install the suggested plugins <br>
-   ![alt text](images-cicd/server-setup-part7.PNG)
-8. Change configuration to allow first connection so your Jenkins can connect to your server.<br>
-   ![alt text](images-cicd/server-setup-part8.PNG)
-9. Install the required plug-ins, such as NodeJs.<br>
- ![alt text](images-cicd/server-setup-part9.PNG)
